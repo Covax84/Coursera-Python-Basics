@@ -6,28 +6,28 @@ towns_pos = list(map(int, input().split()))     # расстояние от на
 vaults = int(input())                           # количество бомбоубежищ
 vaults_pos = list(map(int, input().split()))    # расстояние от начала дороги до i-того бомбоубежища
 
-towns_tuple = []
-vaults_tuple = []
+towns_list = []
+vaults_list = []
 for x in range(towns):
-    towns_tuple.append((towns_pos[x], x))
+    towns_list.append((towns_pos[x], x))
 for x in range(vaults):
-    vaults_tuple.append((vaults_pos[x], x + 1))
-ts = sorted(towns_tuple)
-vs = sorted(vaults_tuple)
+    vaults_list.append((vaults_pos[x], x + 1))
+towns_sorted = sorted(towns_list)
+vaults_sorted = sorted(vaults_list)
 arr = [0] * towns
 i = k = 0
 while i < towns:
     if k + 1 >= vaults:
-        arr[ts[i][1]] = vs[k][1]
+        arr[towns_sorted[i][1]] = vaults_sorted[k][1]
         i += 1
-    elif abs(ts[i][0] - vs[k + 1][0]) >= abs(ts[i][0] - vs[k][0]):
-        arr[ts[i][1]] = vs[k][1]
+    elif abs(towns_sorted[i][0] - vaults_sorted[k + 1][0]) >= abs(towns_sorted[i][0] - vaults_sorted[k][0]):
+        arr[towns_sorted[i][1]] = vaults_sorted[k][1]
         i += 1
     else:
         if k + 1 < vaults - 1:
             k += 1
         else:
-            arr[ts[i][1]] = vs[k+1][1]
+            arr[towns_sorted[i][1]] = vaults_sorted[k + 1][1]
             i += 1
 print(*arr)
 
